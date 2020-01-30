@@ -11,39 +11,9 @@ import Foundation
 class ModelMainScreen {
     
     private var mapperModelMainScreen: MapperMainScreenInterface
+    private let currenciesFileName = "currencies"
     
-    var dictionaryCurrencies = ["AUD": "Australian Dollar",
-                                "BGN": "Bulgarian Lev",
-                                "BRL": "Brazil Real",
-                                "CAD": "Canadian Dollar",
-                                "CHF": "Swiss Franc",
-                                "CNY": "Yuan Renminbi",
-                                "CZK": "Czech Koruna",
-                                "DKK": "Danish Krone",
-                                "EUR": "European Currency Unit",
-                                "GBP": "Pound Sterling",
-                                "HKD": "Hong Kong Dollar",
-                                "HRK": "Croatian Kuna",
-                                "HUF": "Forint",
-                                "IDR": "Indonesian Rupiah",
-                                "ILS": "New Israeli Sheqel",
-                                "INR": "Indian Rupee",
-                                "ISK": "Iceland Krona",
-                                "JPY": "Yen",
-                                "KRW": "South Korean Won",
-                                "MXN": "Mexican Peso",
-                                "MYR": "Malaysian Ringgit",
-                                "NOK": "Norwegian Krone",
-                                "NZD": "New Zealand Dollar",
-                                "PHP": "Philippine Peso",
-                                "PLN": "Poland Zloty",
-                                "RON": "Romanian Leu",
-                                "RUB": "Russian Ruble",
-                                "SEK": "Swedish Krona",
-                                "SGD": "Singapore Dollar",
-                                "THB": "Thai Baht",
-                                "USD": "US Dollar",
-                                "ZAR": "South African Rand"]
+    private var dictionaryCurrencies = [String: String]()
     
     init(mapper: MapperMainScreenInterface) {
         self.mapperModelMainScreen = mapper
@@ -53,5 +23,24 @@ class ModelMainScreen {
 extension ModelMainScreen {
     func getListCurrencies() -> [CurrencyCellViewModel] {
         return mapperModelMainScreen.makeListOfCurrencies(dictionaryCurrencies)
+    }
+    
+    func parseDataFromJson() {
+        guard let path = Bundle.main.path(forResource: currenciesFileName, ofType: "json", inDirectory: nil) else {
+            return
+        }
+        print(path)
+        
+        do {
+            let data = try Data(contentsOf: URL(fileURLWithPath: path), options: [])
+            let jsonResult = try JSONSerialization.jsonObject(with: data, options: [])
+            if let jsonResult = jsonResult as? Dictionary<String, String> {
+                print(jsonResult)
+                dictionaryCurrencies = jsonResult
+            }
+        } catch {
+            print(error)
+        }
+        
     }
 }

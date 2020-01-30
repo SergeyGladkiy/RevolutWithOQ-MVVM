@@ -11,7 +11,7 @@ import UIKit
 class CoordinatorScreenCurrencies {
     private weak var controllerScreenCurrencies: MainScreenCurrencies!
 
-    private var controllerRatesScreen: ControllerRatesScreen!
+    private weak var controllerRatesScreen: ControllerRatesScreen!
     private var modelRatesScreen: ModelRatesScreen!
     
     

@@ -16,6 +16,7 @@ class ViewModelMainScreen {
     private let model: ModelMainScreen
     init(model: ModelMainScreen) {
         self.model = model
+        model.parseDataFromJson()
         self.listOfCurrencies.observable = model.getListCurrencies()
     }
 }
@@ -31,8 +32,7 @@ extension ViewModelMainScreen: MainScreenViewModelType {
         }
     }
     
-    func appendSelectedRow(atIndexPath indexPath: IndexPath) {
-        chosenCurrencies.observable.append(listOfCurrencies.observable[indexPath.row])
+    func appendSelectedRow(atIndexPath indexPath: IndexPath) { chosenCurrencies.observable.append(listOfCurrencies.observable[indexPath.row])
     }
 }
     

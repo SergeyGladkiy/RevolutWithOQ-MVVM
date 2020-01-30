@@ -20,13 +20,17 @@ class ModelRatesScreen {
         self.mapper = mapper
         self.networking = networking
     }
+    
+    deinit {
+        print("modelRatesScreen deinit")
+    }
 }
 
 extension ModelRatesScreen {
     func dataForRequest(_ list: [String]) {
         let string = mapper.makeStringForUrl(list)
         print(string)
-        networking.getExchangeRates(string) { (response) in
+        networking.getExchangeRates(string) { [unowned self] (response) in
             switch response {
             case .success(let pairs):
                 self.chosenCurrencies.observable = self.mapper.makeChosenCurrencyFromDataNetwork(pairs)

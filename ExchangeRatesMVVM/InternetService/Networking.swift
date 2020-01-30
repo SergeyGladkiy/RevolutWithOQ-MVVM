@@ -29,7 +29,7 @@ class Networking: NetworkingInput {
         
         let url = URL(string: urlString)!
         
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
             
             if let error = error {
                 let customError = self.mapper.parsingError(error: error as NSError)
@@ -47,34 +47,36 @@ class Networking: NetworkingInput {
                 let customError = self.mapper.parsingError(error: error as NSError)
                 completion(.failure(customError))
             }
-        }
+        }.resume()
         
-        let operation1 = DataDownloader(task)
-        operation1.completionBlock = {
-            print("1-\(operation1.isFinished)")
-            print(Thread.current)
-        }
-        //pendingOperation.downloadQueue.addOperation(operation1)
-        //operation1.waitUntilFinished()
-
-
-        let operation2 = DataDownloader(task)
-        operation2.completionBlock = {
-            print("2-\(operation2.isFinished)")
-            print(Thread.current)
-        }
-        //pendingOperation.downloadQueue.addOperation(operation2)
-        //operation2.waitUntilFinished()
-
-        let operation3 = DataDownloader(task)
-        operation3.completionBlock = {
-            print("3-\(operation3.isFinished)")
-            print(Thread.current)
-        }
-        //operation3.waitUntilFinished()
-        //pendingOperation.downloadQueue.addOperation(operation3)
-        //operation1.addDependency(operation3)
-        //operation2.addDependency(operation3)
-        pendingOperation.downloadQueue.addOperations([operation1, operation2, operation3], waitUntilFinished: true)
+            
+        
+//        let operation1 = DataDownloader(task)
+//        operation1.completionBlock = {
+//            print("1-\(operation1.isFinished)")
+//            print(Thread.current)
+//        }
+//        //pendingOperation.downloadQueue.addOperation(operation1)
+//        //operation1.waitUntilFinished()
+//
+//
+//        let operation2 = DataDownloader(task)
+//        operation2.completionBlock = {
+//            print("2-\(operation2.isFinished)")
+//            print(Thread.current)
+//        }
+//        //pendingOperation.downloadQueue.addOperation(operation2)
+//        //operation2.waitUntilFinished()
+//
+//        let operation3 = DataDownloader(task)
+//        operation3.completionBlock = {
+//            print("3-\(operation3.isFinished)")
+//            print(Thread.current)
+//        }
+//        //operation3.waitUntilFinished()
+//        //pendingOperation.downloadQueue.addOperation(operation3)
+//        //operation1.addDependency(operation3)
+//        //operation2.addDependency(operation3)
+//        pendingOperation.downloadQueue.addOperations([operation1, operation2, operation3], waitUntilFinished: true)
     }
 }

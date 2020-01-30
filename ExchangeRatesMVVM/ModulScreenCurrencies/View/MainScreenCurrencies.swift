@@ -29,12 +29,13 @@ class MainScreenCurrencies: UIViewController {
         view.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
         layout()
         
-        viewModel.listOfCurrencies.bind { array in
-            self.arrayOfCurrencies = array
+        viewModel.listOfCurrencies.bind { [unowned self] in
+            self.arrayOfCurrencies = $0
             
         }
-        viewModel.chosenCurrencies.bind { array in
-            self.chosenItems = array
+        viewModel.chosenCurrencies.bind { [weak self] in
+            guard let self = self else { return }
+            self.chosenItems = $0
         }
     }
     
@@ -47,6 +48,7 @@ class MainScreenCurrencies: UIViewController {
 
 extension MainScreenCurrencies {
     func layout() {
+        
         let buttonRates = RoundedButton()
         buttonRates.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(buttonRates)
@@ -111,7 +113,7 @@ extension MainScreenCurrencies: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        //tableView.deselectRow(at: indexPath, animated: true)
         if let cell = tableView.cellForRow(at: indexPath as IndexPath) as! CurrencyTableViewCell? {
             if arrayOfCurrencies[indexPath.row].marked == true {
                 cell.accessoryType = .none

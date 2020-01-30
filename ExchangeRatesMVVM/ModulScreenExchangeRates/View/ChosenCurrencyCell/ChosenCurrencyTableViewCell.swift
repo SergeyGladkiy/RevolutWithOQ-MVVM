@@ -12,6 +12,7 @@ import UIKit
 class ChosenCurrencyTableViewCell: UITableViewCell {
     private weak var currencyPair: UILabel!
     private weak var currencyRate: UILabel!
+    weak var activityIndicator: UIActivityIndicatorView!
     
     weak var viewModel: ChosenCurrencyCellViewModel? {
         didSet {
@@ -25,6 +26,7 @@ class ChosenCurrencyTableViewCell: UITableViewCell {
         self.accessoryType = .none
     }
     
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         layoutCell()
@@ -34,6 +36,8 @@ class ChosenCurrencyTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
         layoutCell()
     }
+    
+    
 }
 
 extension ChosenCurrencyTableViewCell {
@@ -46,12 +50,21 @@ extension ChosenCurrencyTableViewCell {
         labelRate.translatesAutoresizingMaskIntoConstraints = false
         addSubview(labelRate)
         
+//        let activityView = UIActivityIndicatorView()
+//        activityView.hidesWhenStopped = true
+//        activityView.translatesAutoresizingMaskIntoConstraints = false
+//        activityView.startAnimating()
+//        addSubview(activityView)
+        
         NSLayoutConstraint.activate(
             [labelPair.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
              labelPair.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 20),
              labelRate.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
-             labelRate.leadingAnchor.constraint(equalTo: labelPair.trailingAnchor, constant: 40)])
+             labelRate.leadingAnchor.constraint(equalTo: labelPair.trailingAnchor, constant: 40),
+             /*activityView.centerYAnchor.constraint(equalTo: labelRate.centerYAnchor),
+             activityView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor, constant: 10)*/])
         currencyPair = labelPair
         currencyRate = labelRate
+        //activityIndicator = activityView
     }
 }

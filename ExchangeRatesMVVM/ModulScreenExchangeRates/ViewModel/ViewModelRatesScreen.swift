@@ -14,10 +14,13 @@ class ViewModelRatesScreen {
     
     var occurError: Observable<String> = Observable<String>(observable: "")
     
-    private let model: ModelRatesScreen!
+    private weak var model: ModelRatesScreen!
     
     init(model: ModelRatesScreen) {
         self.model = model
+    }
+    deinit {
+        print("ViewModelRatesScreen deinit")
     }
 }
 

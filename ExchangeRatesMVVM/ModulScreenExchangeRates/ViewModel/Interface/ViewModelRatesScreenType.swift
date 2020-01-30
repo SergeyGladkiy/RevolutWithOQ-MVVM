@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ViewModelRatesSreenProtocol {
+protocol ViewModelRatesSreenProtocol: class {
     var chosenCurrencies: Observable<[ChosenCurrencyCellViewModel]> { get set }
     var occurError: Observable<String> { get set }
     func removeSelectRow(atIndexPath indexPath: IndexPath)

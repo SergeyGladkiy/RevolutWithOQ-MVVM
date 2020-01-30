@@ -45,14 +45,18 @@ class ControllerRatesScreen: UIViewController {
         view.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
         layout()
     }
+    
+    deinit {
+        print("controller RatesScreen deinit")
+    }
 }
 
 extension ControllerRatesScreen {
     func twoWayDataBinding() {
-        viewModel?.chosenCurrencies.bind { array in
+        viewModel?.chosenCurrencies.bind { [unowned self] array in
             self.listOfCurrencies = array
         }
-        viewModel?.occurError.bind { error in
+        viewModel?.occurError.bind { [unowned self] error in
             self.occurError(error)
         }
     }
@@ -60,6 +64,7 @@ extension ControllerRatesScreen {
 
 extension ControllerRatesScreen {
     func layout() {
+
         let buttonRates = RoundedButton()
         buttonRates.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(buttonRates)
