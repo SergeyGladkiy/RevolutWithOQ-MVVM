@@ -25,15 +25,6 @@ class ControllerRatesScreen: UIViewController {
     
     private var arrayConstraints = [NSLayoutConstraint]()
     
-//    required init(viewModel: ViewModelRatesSreenType, coordinator: ExchangeRatesRouterInput) {
-//        super.init(nibName: nil, bundle: nil)
-//        self.viewModel = viewModel
-//        self.coordinator = coordinator
-//
-//        view.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
-//        layout()
-//    }
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         view.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
@@ -90,6 +81,7 @@ extension ControllerRatesScreen {
         let buttonListOfCurrency = listOfCurrency.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         arrayConstraints.append(contentsOf: [topListOfCurrency, leftListOfCurrency, rightListOfCurrency, buttonListOfCurrency])
         tableView = listOfCurrency
+        
         NSLayoutConstraint.activate(arrayConstraints)
         
     }
@@ -113,6 +105,16 @@ extension ControllerRatesScreen {
 }
 
 extension ControllerRatesScreen: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let aiv = UIActivityIndicatorView(style: .gray)
+        aiv.startAnimating()
+        return aiv
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return listOfCurrencies.isEmpty ? 50 : 0
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return listOfCurrencies.count
     }
