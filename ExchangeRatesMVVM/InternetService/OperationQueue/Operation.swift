@@ -8,21 +8,25 @@
 
 import Foundation
 
-class DataDownloader: Operation {
-    let task: URLSessionTask
-    init(_ task: URLSessionTask) {
-        self.task = task
+class DataDownloader: AsyncOperation {
+    let url: URL
+    var completion: ((Data?, Error?) -> ())
+    init(url: URL, completionBlock: @escaping (Data?, Error?)-> Void) {
+        self.url = url
+        self.completion = completionBlock
     }
     
     override func main() {
-        if isCancelled {
-            return
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            self.completion(data, error)
+            self.state = .finished
         }
+
         task.resume()
-        //task = URLSession.shared.dataTask(with: <#T##URL#>, completionHandler: <#T##(Data?, URLResponse?, Error?) -> Void#>)
+        
+       
     }
-    
-    override var isAsynchronous: Bool {
-        return true
-    }
+   
 }
+

@@ -26,14 +26,11 @@ extension CoordinatorScreenCurrencies {
         controllerRatesScreen.router = self
         controllerRatesScreen.viewModel = viewModelRatesScreen
         
-        modelRatesScreen.chosenCurrencies.bind { currencies in
+        modelRatesScreen.chosenCurrencies.bind {  currencies in
             viewModelRatesScreen.chosenCurrencies.observable = currencies
         }
 
         modelRatesScreen.occurError.bind { (error) in
-            if error == "" {
-                return
-            }
             viewModelRatesScreen.occurError.observable = error
         }
         controllerRatesScreen.twoWayDataBinding()

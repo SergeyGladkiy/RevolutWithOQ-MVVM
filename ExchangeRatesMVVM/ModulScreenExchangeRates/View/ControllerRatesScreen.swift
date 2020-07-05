@@ -45,9 +45,15 @@ class ControllerRatesScreen: UIViewController {
 extension ControllerRatesScreen {
     func twoWayDataBinding() {
         viewModel?.chosenCurrencies.bind { [unowned self] array in
-            self.listOfCurrencies = array
+            DispatchQueue.main.async {
+                self.listOfCurrencies = array
+            }
+            
         }
         viewModel?.occurError.bind { [unowned self] error in
+            if error == "" {
+                return
+            }
             self.occurError(error)
         }
     }
@@ -66,6 +72,7 @@ extension ControllerRatesScreen {
         arrayConstraints.append(contentsOf: [topButtonRates, rightButtonRates, widthButtonRates])
         buttonRates.addTarget(self, action: #selector(back), for: .touchUpInside)
         backward = buttonRates
+        
         
         let listOfCurrency = UITableView()
         listOfCurrency.layer.borderWidth = 1
@@ -99,8 +106,6 @@ extension ControllerRatesScreen {
 extension ControllerRatesScreen {
     @objc func back() {
         router.back()
-        print(listOfCurrencies)
-        listOfCurrencies = []
     }
 }
 

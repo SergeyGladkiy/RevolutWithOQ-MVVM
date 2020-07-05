@@ -14,7 +14,7 @@ class ViewModelRatesScreen {
     
     var occurError: Observable<String> = Observable<String>(observable: "")
     
-    private weak var model: ModelRatesScreen!
+    private var model: ModelRatesScreen
     
     init(model: ModelRatesScreen) {
         self.model = model

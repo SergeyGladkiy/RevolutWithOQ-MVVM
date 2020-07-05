@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+
 class ModelMainScreen {
     
     private var mapperModelMainScreen: MapperMainScreenInterface

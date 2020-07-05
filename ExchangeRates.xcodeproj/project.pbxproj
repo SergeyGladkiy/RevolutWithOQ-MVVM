@@ -11,7 +11,6 @@
 		822CE1F322D649D100D54BC6 /* IMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822CE1F222D649D100D54BC6 /* IMapper.swift */; };
 		82425B802391785200850D73 /* currencies.json in Resources */ = {isa = PBXBuildFile; fileRef = 82425B7F2391785200850D73 /* currencies.json */; };
 		826D8CE222BE5D6500C8F315 /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826D8CE122BE5D6500C8F315 /* Operation.swift */; };
-		826D8CE422BE619500C8F315 /* PendingOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826D8CE322BE619500C8F315 /* PendingOperation.swift */; };
 		826D8D0122C4CFA600C8F315 /* MainScreenCurrencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826D8D0022C4CFA600C8F315 /* MainScreenCurrencies.swift */; };
 		826D8D0322C4D04C00C8F315 /* ViewModelMainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826D8D0222C4D04C00C8F315 /* ViewModelMainScreen.swift */; };
 		826D8D0722C4D09000C8F315 /* MainScreenViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826D8D0622C4D09000C8F315 /* MainScreenViewModelType.swift */; };
@@ -47,6 +46,7 @@
 		82D49C3222A5768800A1527C /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D49C3122A5768800A1527C /* Coordinator.swift */; };
 		82D49C4522A9690300A1527C /* DependenceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D49C4422A9690300A1527C /* DependenceProvider.swift */; };
 		82D49C4922A96E0B00A1527C /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D49C4822A96E0A00A1527C /* Networking.swift */; };
+		82E84A9524AF442400E3B382 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E84A9424AF442400E3B382 /* AsyncOperation.swift */; };
 		82F9C86E22CCC0A1009FBBDC /* MapperMainScreenImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F9C86D22CCC0A1009FBBDC /* MapperMainScreenImplementation.swift */; };
 		82F9C87022CCC0B7009FBBDC /* MapperMainScreenIterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F9C86F22CCC0B7009FBBDC /* MapperMainScreenIterface.swift */; };
 		82F9C87322CCF5E9009FBBDC /* MapperRatesScreenModelImplemntation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F9C87222CCF5E9009FBBDC /* MapperRatesScreenModelImplemntation.swift */; };
@@ -75,7 +75,6 @@
 		822CE1F222D649D100D54BC6 /* IMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMapper.swift; sourceTree = "<group>"; };
 		82425B7F2391785200850D73 /* currencies.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = currencies.json; path = ../currencies.json; sourceTree = "<group>"; };
 		826D8CE122BE5D6500C8F315 /* Operation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operation.swift; sourceTree = "<group>"; };
-		826D8CE322BE619500C8F315 /* PendingOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingOperation.swift; sourceTree = "<group>"; };
 		826D8D0022C4CFA600C8F315 /* MainScreenCurrencies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScreenCurrencies.swift; sourceTree = "<group>"; };
 		826D8D0222C4D04C00C8F315 /* ViewModelMainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelMainScreen.swift; sourceTree = "<group>"; };
 		826D8D0622C4D09000C8F315 /* MainScreenViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewModelType.swift; sourceTree = "<group>"; };
@@ -115,6 +114,7 @@
 		82D49C3122A5768800A1527C /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		82D49C4422A9690300A1527C /* DependenceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenceProvider.swift; sourceTree = "<group>"; };
 		82D49C4822A96E0A00A1527C /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		82E84A9424AF442400E3B382 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		82F9C86D22CCC0A1009FBBDC /* MapperMainScreenImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapperMainScreenImplementation.swift; sourceTree = "<group>"; };
 		82F9C86F22CCC0B7009FBBDC /* MapperMainScreenIterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapperMainScreenIterface.swift; sourceTree = "<group>"; };
 		82F9C87222CCF5E9009FBBDC /* MapperRatesScreenModelImplemntation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapperRatesScreenModelImplemntation.swift; sourceTree = "<group>"; };
@@ -430,8 +430,8 @@
 		82F9C87622CCF7F4009FBBDC /* OperationQueue */ = {
 			isa = PBXGroup;
 			children = (
+				82E84A9424AF442400E3B382 /* AsyncOperation.swift */,
 				826D8CE122BE5D6500C8F315 /* Operation.swift */,
-				826D8CE322BE619500C8F315 /* PendingOperation.swift */,
 			);
 			path = OperationQueue;
 			sourceTree = "<group>";
@@ -664,7 +664,6 @@
 				82D49C4522A9690300A1527C /* DependenceProvider.swift in Sources */,
 				82D49C0422A526ED00A1527C /* AdjustingLabel.swift in Sources */,
 				82D49C1522A52BCA00A1527C /* CurrencyTablViewCell.swift in Sources */,
-				826D8CE422BE619500C8F315 /* PendingOperation.swift in Sources */,
 				82F9C87D22CD18DA009FBBDC /* NetworkingAssembly.swift in Sources */,
 				82D49C0A22A526ED00A1527C /* RoundedButton.swift in Sources */,
 				82F9C88422CD1943009FBBDC /* MainScreenAssembly.swift in Sources */,
@@ -684,6 +683,7 @@
 				826D8D0E22C5122200C8F315 /* ControllerRatesScreen.swift in Sources */,
 				82D49C0722A526ED00A1527C /* IFieldDising.swift in Sources */,
 				826D8D0722C4D09000C8F315 /* MainScreenViewModelType.swift in Sources */,
+				82E84A9524AF442400E3B382 /* AsyncOperation.swift in Sources */,
 				826D8D0122C4CFA600C8F315 /* MainScreenCurrencies.swift in Sources */,
 				826D8CE222BE5D6500C8F315 /* Operation.swift in Sources */,
 				82D49C0522A526ED00A1527C /* ILabelDising.swift in Sources */,

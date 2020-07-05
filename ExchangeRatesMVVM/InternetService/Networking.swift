@@ -13,11 +13,17 @@ struct Pair: Decodable {
     let value: Float
 }
 
+public func duration(_ block: () -> ()) -> TimeInterval {
+  let startTime = Date()
+  block()
+  return Date().timeIntervalSince(startTime)
+}
+
 typealias CurrencyExchangeCompletion = (Result<[String: Float], NSURLError>)-> Void
 
 class Networking: NetworkingInput {
     private var mapper: IMapper!
-    private let pendingOperation = PendingOperations()
+    //private let pendingOperation = PendingOperations()
     
     init(mapper: IMapper) {
         self.mapper = mapper
@@ -27,56 +33,42 @@ class Networking: NetworkingInput {
         
         let urlString = "https://europe-west1-revolut-230009.cloudfunctions.net/revolut-ios?\(stringForUrl)"
         
-        let url = URL(string: urlString)!
+        guard let url = URL(string: urlString) else { return }
         
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            
-            if let error = error {
-                let customError = self.mapper.parsingError(error: error as NSError)
-                completion(.failure(customError))
-                return
-            }
-            
-            // successful
-            do {
-                let pairs = try JSONDecoder().decode([String: Float].self, from: data!)
-                DispatchQueue.main.async {
-                    completion(.success(pairs))
+        var arrayOperation = [Operation]()
+        let operationQueue = OperationQueue()
+        //operationQueue.maxConcurrentOperationCount = 1
+        
+        for _ in (0...10) {
+            let operation = DataDownloader(url: url) { data, error in
+                if let error = error {
+                    let customError = self.mapper.parsingError(error: error as NSError)
+                    completion(.failure(customError))
+                    return
                 }
-            } catch let error {
-                let customError = self.mapper.parsingError(error: error as NSError)
-                completion(.failure(customError))
+                
+                // successful
+                do {
+                    let pairs = try JSONDecoder().decode([String: Float].self, from: data!)
+                    
+                    DispatchQueue.main.async {
+                        completion(.success(pairs))
+                    }
+                } catch let error {
+                    let customError = self.mapper.parsingError(error: error as NSError)
+                    completion(.failure(customError))
+                }
             }
-        }.resume()
-        
             
+            arrayOperation.append(operation)
+        }
         
-//        let operation1 = DataDownloader(task)
-//        operation1.completionBlock = {
-//            print("1-\(operation1.isFinished)")
-//            print(Thread.current)
+        operationQueue.addOperations(arrayOperation, waitUntilFinished: false)
+        // duration of executing all operations
+//        let time = duration {
+//            operationQueue.addOperations(arrayOperation, waitUntilFinished: true)
 //        }
-//        //pendingOperation.downloadQueue.addOperation(operation1)
-//        //operation1.waitUntilFinished()
-//
-//
-//        let operation2 = DataDownloader(task)
-//        operation2.completionBlock = {
-//            print("2-\(operation2.isFinished)")
-//            print(Thread.current)
-//        }
-//        //pendingOperation.downloadQueue.addOperation(operation2)
-//        //operation2.waitUntilFinished()
-//
-//        let operation3 = DataDownloader(task)
-//        operation3.completionBlock = {
-//            print("3-\(operation3.isFinished)")
-//            print(Thread.current)
-//        }
-//        //operation3.waitUntilFinished()
-//        //pendingOperation.downloadQueue.addOperation(operation3)
-//        //operation1.addDependency(operation3)
-//        //operation2.addDependency(operation3)
-//        pendingOperation.downloadQueue.addOperations([operation1, operation2, operation3], waitUntilFinished: true)
+//        print(time)
+        
     }
 }
